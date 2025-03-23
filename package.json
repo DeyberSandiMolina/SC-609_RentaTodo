@@ -1,0 +1,29 @@
+{
+  "name": "sc-609_rentatodo",
+  "version": "1.0.0",
+  "description": "Proyecto RentaTodo basado en colecciones No SQL",
+  "main": "ServerRutas.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeyberSandiMolina/SC-609_RentaTodo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeyberSandiMolina/SC-609_RentaTodo/issues"
+  },
+  "homepage": "https://github.com/DeyberSandiMolina/SC-609_RentaTodo#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.12.2"
+  },
+  "devDependencies": {
+    "@ljharb/tsconfig": "^0.3.2"
+  }
+}
