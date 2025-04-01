@@ -8,6 +8,9 @@ const cors = require("cors");
 const usuarioRouters = require("./routers/UsuarioRoutes");
 const soporteRouters = require("./routers/SoporteRoutes");
 const resennaRouters = require("./routers/ResennaRoutes");
+const NotificacionRouters = require("./routers/NotificacionRoutes");
+const ReporteFraudeRouters = require("./routers/ReporteFraudeRoutes");
+
 // 
 const app = express();
 
@@ -26,6 +29,8 @@ mongoose.connect(mongoURi)
 app.use("/Usuario", usuarioRouters);
 app.use("/Soporte", soporteRouters);
 app.use("/Resenna", resennaRouters);
+app.use("/Notificacion", NotificacionRouters);
+app.use("/ReporteFraude", ReporteFraudeRouters);
 
 
 //Inciar el servidor
