@@ -2,11 +2,11 @@
 const express = require("express");
 const router = express.Router();
 
-const usuarioController = require('../controller/SoporteController');
+const soporteController = require('../controller/SoporteController');
 
-router.post("/",usuarioController.crearSoporte);
-router.get("/", usuarioController.obtenerSoporte);
-router.put("/:id", usuarioController.actualizarSoporte);
-router.delete("/:id", usuarioController.eliminarSoporte);
+router.post("/",soporteController.crearSoporte);
+router.get("/", soporteController.obtenerSoporte);
+router.put("/:id", soporteController.actualizarSoporte);
+router.delete("/:id", soporteController.eliminarSoporte);
 
 module.exports = router;
