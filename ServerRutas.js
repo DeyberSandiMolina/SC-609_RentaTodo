@@ -8,6 +8,9 @@ const cors = require("cors");
 const usuarioRouters = require("./routers/UsuarioRoutes");
 const soporteRouters = require("./routers/SoporteRoutes");
 const resennaRouters = require("./routers/ResennaRoutes");
+const objetoRouters = require("./routers/ObjetoRoutes");
+const pagoRouters = require("./routers/PagoRoutes");
+const reservaRouters = require("./routers/ReservaRoutes");
 const notificacionRouters = require("./routers/NotificacionRoutes");
 const reporteFraudeRouters = require("./routers/ReporteFraudeRoutes");
 
@@ -29,6 +32,9 @@ mongoose.connect(mongoURi)
 app.use("/Usuario", usuarioRouters);
 app.use("/Soporte", soporteRouters);
 app.use("/Resenna", resennaRouters);
+app.use("/Objeto", objetoRouters);
+app.use("/Pago", pagoRouters);
+app.use("/Reserva", reservaRouters);
 app.use("/Notificacion", notificacionRouters);
 app.use("/ReporteFraude", reporteFraudeRouters);
 
