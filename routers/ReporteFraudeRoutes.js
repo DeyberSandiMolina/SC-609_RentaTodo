@@ -2,11 +2,11 @@
 const express = require("express");
 const router = express.Router();
 
-const ReporteFraudeController = require('../controller/ResennaController');
+const ReporteFraudeController = require('../controller/ReporteFraudeController');
 
-router.post("/",ReporteFraudeController.crearResenna);
-router.get("/", ReporteFraudeController.obtenerResenna);
-router.put("/:id", ReporteFraudeController.actualizarResenna);
-router.delete("/:id", ReporteFraudeController.eliminarResenna);
+router.post("/",ReporteFraudeController.crearReporteFraude);
+router.get("/", ReporteFraudeController.obtenerReporteFraude);
+router.put("/:id", ReporteFraudeController.actualizarReporteFraude);
+router.delete("/:id", ReporteFraudeController.eliminarReporteFraude);
 
 module.exports = router;
