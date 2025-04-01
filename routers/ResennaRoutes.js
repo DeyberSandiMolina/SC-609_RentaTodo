@@ -2,11 +2,11 @@
 const express = require("express");
 const router = express.Router();
 
-const usuarioController = require('../controller/ResennaController');
+const resennaController = require('../controller/ResennaController');
 
-router.post("/",usuarioController.crearResenna);
-router.get("/", usuarioController.obtenerResenna);
-router.put("/:id", usuarioController.actualizarResenna);
-router.delete("/:id", usuarioController.eliminarResenna);
+router.post("/",resennaController.crearResenna);
+router.get("/", resennaController.obtenerResenna);
+router.put("/:id", resennaController.actualizarResenna);
+router.delete("/:id", resennaController.eliminarResenna);
 
 module.exports = router;
