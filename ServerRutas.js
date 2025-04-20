@@ -1,6 +1,6 @@
 //Esto es el archivo de ajustes para el servidor 
 require("dotenv").config();
-
+const path = require('path');
 //Invocando librerias
 const express = require("express");
 const mongoose = require("mongoose");
@@ -20,7 +20,7 @@ const app = express();
 //Middleware esto es para el req y respon
 app.use(express.json());
 app.use(cors());
-
+app.use(express.static(path.join(__dirname, 'public')));
 //Obtener el string de conexion env
 const mongoURi = process.env.MONGO_URI;
 

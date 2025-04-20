@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RentaTodo - Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container py-4">
+  <h1 class="text-center mb-4">🏠 Bienvenido a RentaTodo</h1>
+
+  <!-- Navegación tipo pestaña -->
+  <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('usuarios')">Usuarios</button>
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('soporte')">Soporte</button>
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('reserva')">Reserva</button>
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('resenna')">Reseña</button>
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('reporte')">Reporte</button>
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('pago')">Pago</button>
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('objeto')">Objeto</button>
+    <button class="btn btn-outline-primary" onclick="mostrarSeccion('notificacion')">Notificación</button>
+  </div>
+
+  <!-- Secciones -->
+  <div id="usuarios" class="seccion">
+    <h3>Usuarios</h3>
+    <!-- Formulario -->
+    <form id="formulariocrear">
+
+        <div class="mb-3">
+            <label for="" class="form-label">Nombre</label>
+            <input required type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId"
+                placeholder="" />
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="form-label">Apellido</label>
+            <input required type="text" class="form-control" name="apellido" id="apellido" aria-describedby="helpId"
+                placeholder="" />
+        </div>       
+
+        <div class="mb-3">
+            <label for="" class="form-label">Email</label>
+            <input required type="email" class="form-control" name="email" id="email" aria-describedby="helpId"
+                placeholder="" />
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="form-label">Reputación</label>
+            <input required type="text" class="form-control" name="reputacion" id="reputacion"
+                aria-describedby="helpId" placeholder="" />
+        </div>
+
+        <div class="mb-3">
+
+            <button type="reset" class="btn btn-danger">
+                Limpiar
+            </button>
+
+
+            <button type="submit" class="btn btn-primary">
+                Crear
+            </button>
+
+
+        </div>
+    </form>
+
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-primary">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Reputación</th>
+                    <th scope="col">Configuración</th>
+                </tr>
+            </thead>
+            <tbody id="tabladinamica">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Modal Editar
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form id="formularioeditar">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Id</label>
+                            <input
+                            disabled
+                                type="text"
+                                class="form-control"
+                                name="ideditar"
+                                id="ideditar"
+                                aria-describedby="helpId"
+                                placeholder=""
+                            />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="" class="form-label">Nombre</label>
+                            <input required type="text" class="form-control" name="nombreeditar" id="nombreeditar" aria-describedby="helpId"
+                                placeholder="" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Apellido</label>
+                            <input required type="text" class="form-control" name="apellidoeditar" id="apellidoeditar" aria-describedby="helpId"
+                                placeholder="" />
+                        </div>
+            
+                        <div class="mb-3">
+                            <label for="" class="form-label">Email</label>
+                            <input required type="email" class="form-control" name="emaileditar" id="emaileditar" aria-describedby="helpId"
+                                placeholder="" />
+                        </div>
+            
+                        <div class="mb-3">
+                            <label for="" class="form-label">Reputacion</label>
+                            <input required type="text" class="form-control" name="reputacioneditar" id="reputacioneditar"
+                                aria-describedby="helpId" placeholder="" />
+                        </div>
+            
+            
+                        <div class="mb-3">
+            
+                            <button type="reset" class="btn btn-danger">
+                                Limpiar
+                            </button>
+            
+            
+                            <button type="submit" class="btn btn-success">
+                                Guardar
+                            </button>
+            
+            
+                        </div>
+                    </form>                        
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog"><div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal Eliminar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4>¿Estás seguro de eliminar?</h4>
+        <form id="formularioeliminar">
+          <div class="mb-3">
+            <label for="ideliminar" class="form-label">Id</label>
+            <input disabled type="text" class="form-control" id="ideliminar" />
+          </div>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div></div>
+  </div>
+
+    <!-- Sección Soporte -->
+    <!-- Sección Soporte -->
+<div id="soporte" class="seccion d-none">
+  <h3>Soporte</h3>
+
+  <!-- Formulario Crear Soporte -->
+  <form id="formulariocrearsoporte">
+    <div class="mb-3">
+      <label for="ticket_id" class="form-label">Ticket ID</label>
+      <input required type="number" class="form-control" name="ticket_id" id="ticket_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="usuario_id" class="form-label">Usuario ID</label>
+      <input required type="text" class="form-control" name="usuario_id" id="usuario_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea required class="form-control" name="descripcion" id="descripcion"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+  <!-- Tabla Soporte -->
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Ticket ID</th>
+            <th scope="col">Usuario ID</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Configuración</th>
+          </tr>
+        </thead>
+        <tbody id="tablasoporte"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Soporte -->
+<div class="modal fade" id="modalEditarSoporte" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <form id="formularioeditarsoporte" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Soporte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input disabled type="text" id="ideditarsoporte" class="form-control mb-3" />
+        <input required type="number" id="ticket_ideditar" class="form-control mb-3" placeholder="Ticket ID" />
+        <input required type="text" id="usuario_ideditar" class="form-control mb-3" placeholder="Usuario ID" />
+        <textarea required id="descripcioneditar" class="form-control mb-3" placeholder="Descripción"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Soporte -->
+<div class="modal fade" id="modalEliminarSoporte" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeliminarsoporte" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Soporte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de eliminar este soporte?</p>
+        <input disabled type="text" id="ideliminarsoporte" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+      <!-- Sección Reserva -->
+<div id="reserva" class="seccion d-none">
+  <h3>Reserva</h3>
+
+  <!-- Formulario Crear Reserva -->
+  <form id="formulariocrearreserva">
+    <div class="mb-3">
+      <label for="objeto_id" class="form-label">Objeto ID</label>
+      <input required type="text" class="form-control" name="objeto_id" id="objeto_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="arrendatario_id" class="form-label">Arrendatario ID</label>
+      <input required type="text" class="form-control" name="arrendatario_id" id="arrendatario_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
+      <input required type="date" class="form-control" name="fecha_inicio" id="fecha_inicio" />
+    </div>
+
+    <div class="mb-3">
+      <label for="fecha_fin" class="form-label">Fecha de Fin</label>
+      <input required type="date" class="form-control" name="fecha_fin" id="fecha_fin" />
+    </div>
+
+    <div class="mb-3">
+      <label for="estado" class="form-label">Estado</label>
+      <select required class="form-control" name="estado" id="estado">
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmada">Confirmada</option>
+        <option value="cancelada">Cancelada</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+  <!-- Tabla Reserva -->
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Objeto ID</th>
+            <th scope="col">Arrendatario ID</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Fecha Fin</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Configuración</th>
+          </tr>
+        </thead>
+        <tbody id="tablareserva"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Reserva -->
+<div class="modal fade" id="modalEditarReserva" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <form id="formularioeditarreserva" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Reserva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input disabled type="text" id="ideditarreserva" class="form-control mb-3" />
+        <input required type="text" id="objeto_ideditar" class="form-control mb-3" placeholder="Objeto ID" />
+        <input required type="text" id="arrendatario_ideditar" class="form-control mb-3" placeholder="Arrendatario ID" />
+        <input required type="date" id="fecha_inicioeditar" class="form-control mb-3" placeholder="Fecha de Inicio" />
+        <input required type="date" id="fecha_fineditar" class="form-control mb-3" placeholder="Fecha de Fin" />
+        <select required id="estadoeditar" class="form-control mb-3">
+          <option value="pendiente">Pendiente</option>
+          <option value="confirmada">Confirmada</option>
+          <option value="cancelada">Cancelada</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Reserva -->
+<div class="modal fade" id="modalEliminarReserva" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeliminarreserva" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Reserva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de eliminar esta reserva?</p>
+        <input disabled type="text" id="ideliminarreserva" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+      <!-- Sección Reseña -->
+<div id="resenna" class="seccion d-none">
+  <h3>Reseña</h3>
+
+  <!-- Formulario Crear Reseña -->
+  <form id="formulariocrearresenna">
+    <div class="mb-3">
+      <label for="resenna_id" class="form-label">ID Reseña</label>
+      <input required type="number" class="form-control" name="resenna_id" id="resenna_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="usuario_id" class="form-label">Usuario ID</label>
+      <input required type="text" class="form-control" name="usuario_id" id="usuario_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="calificacion" class="form-label">Calificación</label>
+      <input required type="number" class="form-control" name="calificacion" id="calificacion" min="1" max="5" />
+    </div>
+
+    <div class="mb-3">
+      <label for="mensaje" class="form-label">Mensaje</label>
+      <textarea required class="form-control" name="mensaje" id="mensaje" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+  <!-- Tabla Reseña -->
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Usuario ID</th>
+            <th scope="col">Calificación</th>
+            <th scope="col">Mensaje</th>
+            <th scope="col">Configuración</th>
+          </tr>
+        </thead>
+        <tbody id="tablaresenna"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Reseña -->
+<div class="modal fade" id="modalEditarResenna" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <form id="formularioeditarresenna" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Reseña</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input disabled type="text" id="ideditarresenna" class="form-control mb-3" />
+        <input required type="number" id="resenna_ideditar" class="form-control mb-3" placeholder="ID Reseña" />
+        <input required type="text" id="usuario_ideditar" class="form-control mb-3" placeholder="Usuario ID" />
+        <input required type="number" id="calificacioneditar" class="form-control mb-3" placeholder="Calificación" min="1" max="5" />
+        <textarea required id="mensajeeditar" class="form-control mb-3" placeholder="Mensaje" rows="3"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Reseña -->
+<div class="modal fade" id="modalEliminarResenna" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeliminarresenna" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Reseña</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás segura de eliminar esta reseña?</p>
+        <input disabled type="text" id="ideliminarresenna" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+      <!-- Sección Reporte -->
+<div id="reporte" class="seccion d-none">
+  <h3>Reporte</h3>
+
+  <!-- Formulario Crear Reporte -->
+  <form id="formulariocrearreporte">
+    <div class="mb-3">
+      <label for="reporte_id" class="form-label">ID Reporte</label>
+      <input required type="number" class="form-control" name="reporte_id" id="reporte_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="usuario_id" class="form-label">Usuario ID</label>
+      <input required type="text" class="form-control" name="usuario_id" id="usuario_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="usuario_reportado_id" class="form-label">Usuario Reportado ID</label>
+      <input required type="text" class="form-control" name="usuario_reportado_id" id="usuario_reportado_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="motivo" class="form-label">Motivo</label>
+      <textarea required class="form-control" name="motivo" id="motivo" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+  <!-- Tabla Reporte -->
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Usuario ID</th>
+            <th>Usuario Reportado ID</th>
+            <th>Motivo</th>
+            <th>Configuración</th>
+          </tr>
+        </thead>
+        <tbody id="tablareporte"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Reporte -->
+<div class="modal fade" id="modalEditarReporte" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <form id="formularioeditarreporte" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Reporte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input disabled type="text" id="ideditarreporte" class="form-control mb-3" />
+        <input required type="number" id="reporte_ideditar" class="form-control mb-3" placeholder="ID Reporte" />
+        <input required type="text" id="usuario_ideditar" class="form-control mb-3" placeholder="Usuario ID" />
+        <input required type="text" id="usuario_reportado_ideditar" class="form-control mb-3" placeholder="Usuario Reportado ID" />
+        <textarea required id="motivoeditar" class="form-control mb-3" placeholder="Motivo" rows="3"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Reporte -->
+<div class="modal fade" id="modalEliminarReporte" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeliminarreporte" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Reporte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás segura de eliminar este reporte?</p>
+        <input disabled type="text" id="ideliminarreporte" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+      <!-- Sección Pago -->
+<div id="pago" class="seccion d-none">
+  <h3>Pago</h3>
+
+  <!-- Formulario Crear Pago -->
+  <form id="formulariocrearpago">
+    <div class="mb-3">
+      <label for="reserva_id" class="form-label">ID Reserva</label>
+      <input required type="text" class="form-control" name="reserva_id" id="reserva_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="monto" class="form-label">Monto</label>
+      <input required type="number" class="form-control" name="monto" id="monto" />
+    </div>
+
+    <div class="mb-3">
+      <label for="estado" class="form-label">Estado</label>
+      <select required class="form-control" name="estado" id="estado">
+        <option value="pendiente">Pendiente</option>
+        <option value="completado">Completado</option>
+        <option value="fallido">Fallido</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+  <!-- Tabla Pago -->
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th>Reserva ID</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Configuración</th>
+          </tr>
+        </thead>
+        <tbody id="tablapago"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Pago -->
+<div class="modal fade" id="modalEditarPago" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <form id="formularioeditarpago" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input disabled type="text" id="ideditarpago" class="form-control mb-3" />
+        <input required type="text" id="reserva_ideditar" class="form-control mb-3" placeholder="ID Reserva" />
+        <input required type="number" id="montoeditar" class="form-control mb-3" placeholder="Monto" />
+        <select required id="estadoeditar" class="form-control mb-3">
+          <option value="pendiente">Pendiente</option>
+          <option value="completado">Completado</option>
+          <option value="fallido">Fallido</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Pago -->
+<div class="modal fade" id="modalEliminarPago" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeliminarpago" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás segura de eliminar este pago?</p>
+        <input disabled type="text" id="ideliminarpago" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+      <!-- Sección Objeto -->
+<div id="objeto" class="seccion d-none">
+  <h3>Objeto</h3>
+
+  <!-- Formulario Crear Objeto -->
+  <form id="formulariocrearobjeto">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input required type="text" class="form-control" name="nombre" id="nombre" />
+    </div>
+
+    <div class="mb-3">
+      <label for="categoria" class="form-label">Categoría</label>
+      <input required type="text" class="form-control" name="categoria" id="categoria" />
+    </div>
+
+    <div class="mb-3">
+      <label for="dueño_id" class="form-label">Dueño (ID)</label>
+      <input required type="text" class="form-control" name="dueño_id" id="dueño_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="precio_por_dia" class="form-label">Precio por día</label>
+      <input required type="number" class="form-control" name="precio_por_dia" id="precio_por_dia" />
+    </div>
+
+    <div class="mb-3">
+      <label for="estado" class="form-label">Estado</label>
+      <select required class="form-control" name="estado" id="estado">
+        <option value="disponible">Disponible</option>
+        <option value="alquilado">Alquilado</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+  <!-- Tabla Objeto -->
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Dueño ID</th>
+            <th>Precio/Día</th>
+            <th>Estado</th>
+            <th>Configuración</th>
+          </tr>
+        </thead>
+        <tbody id="tablaobjeto"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Objeto -->
+<div class="modal fade" id="modalEditarObjeto" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeditarobjeto" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Objeto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input disabled type="text" id="ideditarobjeto" class="form-control mb-3" />
+        <input required type="text" id="nombreeditar" class="form-control mb-3" placeholder="Nombre" />
+        <input required type="text" id="categoriaeditar" class="form-control mb-3" placeholder="Categoría" />
+        <input required type="text" id="dueño_ideditar" class="form-control mb-3" placeholder="Dueño ID" />
+        <input required type="number" id="precio_por_diaeditar" class="form-control mb-3" placeholder="Precio por día" />
+        <select required id="estadoeditar" class="form-control mb-3">
+          <option value="disponible">Disponible</option>
+          <option value="alquilado">Alquilado</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Objeto -->
+<div class="modal fade" id="modalEliminarObjeto" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeliminarobjeto" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Objeto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás segura de eliminar este objeto?</p>
+        <input disabled type="text" id="ideliminarobjeto" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+      <!-- Sección Notificación -->
+<div id="notificacion" class="seccion d-none">
+  <h3>Notificación</h3>
+
+  <!-- Formulario Crear Notificación -->
+  <form id="formulariocrearnotificacion">
+    <div class="mb-3">
+      <label for="usuario_id" class="form-label">Usuario ID</label>
+      <input required type="text" class="form-control" name="usuario_id" id="usuario_id" />
+    </div>
+
+    <div class="mb-3">
+      <label for="mensaje" class="form-label">Mensaje</label>
+      <input required type="text" class="form-control" name="mensaje" id="mensaje" />
+    </div>
+
+    <div class="mb-3">
+      <button type="reset" class="btn btn-danger">Limpiar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+  <!-- Tabla Notificación -->
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th>Usuario ID</th>
+            <th>Mensaje</th>
+            <th>Configuración</th>
+          </tr>
+        </thead>
+        <tbody id="tablanotificacion"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Notificación -->
+<div class="modal fade" id="modalEditarNotificacion" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeditarnotificacion" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Notificación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input disabled type="text" id="ideditarnotificacion" class="form-control mb-3" />
+        <input required type="text" id="usuario_ideditar" class="form-control mb-3" placeholder="Usuario ID" />
+        <input required type="text" id="mensajeeditar" class="form-control mb-3" placeholder="Mensaje" />
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Notificación -->
+<div class="modal fade" id="modalEliminarNotificacion" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formularioeliminarnotificacion" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Notificación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás segura de eliminar esta notificación?</p>
+        <input disabled type="text" id="ideliminarnotificacion" class="form-control" />
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <script>
+    const urlAPI = 'http://localhost:8000/Usuario';
+
+  async function cargarUsuarios() {
+    const respuesta = await fetch(urlAPI);
+    const datos = await respuesta.json();
+    const tabladinamica = document.getElementById('tabladinamica');
+    tabladinamica.innerHTML = '';
+    datos.forEach(element => {
+      const fila = `
+        <tr>
+          <td>${element._id}</td>
+          <td>${element.nombre}</td>
+          <td>${element.apellido}</td>
+          <td>${element.email}</td>
+          <td>${element.reputacion}</td>
+          <td>
+            <button class="btn btn-danger" onclick="abriModalEliminar('${element._id}')">Eliminar</button>
+            <button class="btn btn-primary" onclick="abriModalEditar('${element._id}', '${element.nombre}', '${element.apellido}', '${element.email}', '${element.reputacion}')">Editar</button>
+          </td>
+        </tr>
+      `;
+      tabladinamica.innerHTML += fila;
+    });
+  }
+
+  cargarUsuarios();
+
+  document.getElementById('formulariocrear').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nuevoUsuario = {
+      nombre: document.getElementById('nombre').value,
+      apellido: document.getElementById('apellido').value,
+      email: document.getElementById('email').value,
+      reputacion: document.getElementById('reputacion').value
+    };
+    await fetch(urlAPI, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(nuevoUsuario)
+    });
+    cargarUsuarios();
+    e.target.reset();
+  });
+
+  document.getElementById('formularioeditar').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('ideditar').value;
+    const editarUsuario = {
+      nombre: document.getElementById('nombreeditar').value,
+      apellido: document.getElementById('apellidoeditar').value,
+      email: document.getElementById('emaileditar').value,
+      reputacion: document.getElementById('reputacioneditar').value
+    };
+    await fetch(`${urlAPI}/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editarUsuario)
+    });
+    cargarUsuarios();
+    bootstrap.Modal.getInstance(document.getElementById('modalEditar')).hide();
+    e.target.reset();
+  });
+
+  document.getElementById('formularioeliminar').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('ideliminar').value;
+    await fetch(`${urlAPI}/${id}`, { method: 'DELETE' });
+    cargarUsuarios();
+    bootstrap.Modal.getInstance(document.getElementById('modalEliminar')).hide();
+    e.target.reset();
+  });
+
+  function abriModalEditar(id, nombre, apellido, email, reputacion) {
+    document.getElementById('ideditar').value = id;
+    document.getElementById('nombreeditar').value = nombre;
+    document.getElementById('apellidoeditar').value = apellido;
+    document.getElementById('emaileditar').value = email;
+    document.getElementById('reputacioneditar').value = reputacion;
+    new bootstrap.Modal(document.getElementById('modalEditar')).show();
+  }
+
+  function abriModalEliminar(id) {
+    document.getElementById('ideliminar').value = id;
+    new bootstrap.Modal(document.getElementById('modalEliminar')).show();
+  }
+
+  function mostrarSeccion(id) {
+    const secciones = document.querySelectorAll('.seccion');
+    secciones.forEach(seccion => seccion.classList.add('d-none'));
+    const seccionMostrada = document.getElementById(id);
+    if (seccionMostrada) {
+      seccionMostrada.classList.remove('d-none');
+    } else {
+      console.warn('Sección no encontrada:', id);
+    }
+  }
+
+  mostrarSeccion('usuarios');
+
+  const urlSoporte = 'http://localhost:8000/Soporte';
+
+async function cargarSoportes() {
+  const respuesta = await fetch(urlSoporte);
+  const datos = await respuesta.json();
+  const tabla = document.getElementById('tablasoporte');
+  tabla.innerHTML = '';
+  datos.forEach(s => {
+    const fila = `
+      <tr>
+        <td>${s._id}</td>
+        <td>${s.ticket_id}</td>
+        <td>${s.usuario_id}</td>
+        <td>${s.descripcion}</td>
+        <td>
+          <button class="btn btn-danger" onclick="abrirModalEliminarSoporte('${s._id}')">Eliminar</button>
+          <button class="btn btn-primary" onclick="abrirModalEditarSoporte('${s._id}', '${s.ticket_id}', '${s.usuario_id}', \`${s.descripcion}\`)">Editar</button>
+        </td>
+      </tr>
+    `;
+    tabla.innerHTML += fila;
+  });
+}
+
+cargarSoportes();
+
+document.getElementById('formulariocrearsoporte').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nuevo = {
+    ticket_id: document.getElementById('ticket_id').value,
+    usuario_id: document.getElementById('usuario_id').value,
+    descripcion: document.getElementById('descripcion').value
+  };
+  await fetch(urlSoporte, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nuevo)
+  });
+  cargarSoportes();
+  e.target.reset();
+});
+
+document.getElementById('formularioeditarsoporte').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideditarsoporte').value;
+  const actualizado = {
+    ticket_id: document.getElementById('ticket_ideditar').value,
+    usuario_id: document.getElementById('usuario_ideditar').value,
+    descripcion: document.getElementById('descripcioneditar').value
+  };
+  await fetch(`${urlSoporte}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(actualizado)
+  });
+  cargarSoportes();
+  bootstrap.Modal.getInstance(document.getElementById('modalEditarSoporte')).hide();
+  e.target.reset();
+});
+
+document.getElementById('formularioeliminarsoporte').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideliminarsoporte').value;
+  await fetch(`${urlSoporte}/${id}`, { method: 'DELETE' });
+  cargarSoportes();
+  bootstrap.Modal.getInstance(document.getElementById('modalEliminarSoporte')).hide();
+  e.target.reset();
+});
+
+function abrirModalEditarSoporte(id, ticket_id, usuario_id, descripcion) {
+  document.getElementById('ideditarsoporte').value = id;
+  document.getElementById('ticket_ideditar').value = ticket_id;
+  document.getElementById('usuario_ideditar').value = usuario_id;
+  document.getElementById('descripcioneditar').value = descripcion;
+  new bootstrap.Modal(document.getElementById('modalEditarSoporte')).show();
+}
+
+function abrirModalEliminarSoporte(id) {
+  document.getElementById('ideliminarsoporte').value = id;
+  new bootstrap.Modal(document.getElementById('modalEliminarSoporte')).show();
+}
+
+const urlReserva = 'http://localhost:8000/Reserva';
+
+async function cargarReservas() {
+  const respuesta = await fetch(urlReserva);
+  const datos = await respuesta.json();
+  const tabla = document.getElementById('tablareserva');
+  tabla.innerHTML = '';
+  datos.forEach(r => {
+    const fila = `
+      <tr>
+        <td>${r._id}</td>
+        <td>${r.objeto_id}</td>
+        <td>${r.arrendatario_id}</td>
+        <td>${r.fecha_inicio?.substring(0, 10)}</td>
+        <td>${r.fecha_fin?.substring(0, 10)}</td>
+        <td>${r.estado}</td>
+        <td>
+          <button class="btn btn-danger" onclick="abrirModalEliminarReserva('${r._id}')">Eliminar</button>
+          <button class="btn btn-primary" onclick="abrirModalEditarReserva('${r._id}', '${r.objeto_id}', '${r.arrendatario_id}', '${r.fecha_inicio?.substring(0, 10)}', '${r.fecha_fin?.substring(0, 10)}', '${r.estado}')">Editar</button>
+        </td>
+      </tr>
+    `;
+    tabla.innerHTML += fila;
+  });
+}
+
+cargarReservas();
+
+document.getElementById('formulariocrearreserva').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nueva = {
+    objeto_id: document.getElementById('objeto_id').value,
+    arrendatario_id: document.getElementById('arrendatario_id').value,
+    fecha_inicio: document.getElementById('fecha_inicio').value,
+    fecha_fin: document.getElementById('fecha_fin').value,
+    estado: document.getElementById('estado').value
+  };
+  await fetch(urlReserva, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nueva)
+  });
+  cargarReservas();
+  e.target.reset();
+});
+
+document.getElementById('formularioeditarreserva').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideditarreserva').value;
+  const actualizado = {
+    objeto_id: document.getElementById('objeto_ideditar').value,
+    arrendatario_id: document.getElementById('arrendatario_ideditar').value,
+    fecha_inicio: document.getElementById('fecha_inicioeditar').value,
+    fecha_fin: document.getElementById('fecha_fineditar').value,
+    estado: document.getElementById('estadoeditar').value
+  };
+  await fetch(`${urlReserva}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(actualizado)
+  });
+  cargarReservas();
+  bootstrap.Modal.getInstance(document.getElementById('modalEditarReserva')).hide();
+  e.target.reset();
+});
+
+document.getElementById('formularioeliminarreserva').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideliminarreserva').value;
+  await fetch(`${urlReserva}/${id}`, { method: 'DELETE' });
+  cargarReservas();
+  bootstrap.Modal.getInstance(document.getElementById('modalEliminarReserva')).hide();
+  e.target.reset();
+});
+
+function abrirModalEditarReserva(id, objeto_id, arrendatario_id, fecha_inicio, fecha_fin, estado) {
+  document.getElementById('ideditarreserva').value = id;
+  document.getElementById('objeto_ideditar').value = objeto_id;
+  document.getElementById('arrendatario_ideditar').value = arrendatario_id;
+  document.getElementById('fecha_inicioeditar').value = fecha_inicio;
+  document.getElementById('fecha_fineditar').value = fecha_fin;
+  document.getElementById('estadoeditar').value = estado;
+  new bootstrap.Modal(document.getElementById('modalEditarReserva')).show();
+}
+
+function abrirModalEliminarReserva(id) {
+  document.getElementById('ideliminarreserva').value = id;
+  new bootstrap.Modal(document.getElementById('modalEliminarReserva')).show();
+}
+
+const urlResenna = 'http://localhost:8000/Resenna';
+
+async function cargarResennas() {
+  const respuesta = await fetch(urlResenna);
+  const datos = await respuesta.json();
+  const tabla = document.getElementById('tablaresenna');
+  tabla.innerHTML = '';
+  datos.forEach(r => {
+    const fila = `
+      <tr>
+        <td>${r.resenna_id}</td>
+        <td>${r.usuario_id}</td>
+        <td>${r.calificacion}</td>
+        <td>${r.mensaje}</td>
+        <td>
+          <button class="btn btn-danger" onclick="abrirModalEliminarResenna('${r._id}')">Eliminar</button>
+          <button class="btn btn-primary" onclick="abrirModalEditarResenna('${r._id}', ${r.resenna_id}, '${r.usuario_id}', ${r.calificacion}, \`${r.mensaje}\`)">Editar</button>
+        </td>
+      </tr>
+    `;
+    tabla.innerHTML += fila;
+  });
+}
+
+cargarResennas();
+
+document.getElementById('formulariocrearresenna').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nueva = {
+    resenna_id: document.getElementById('resenna_id').value,
+    usuario_id: document.getElementById('usuario_id').value,
+    calificacion: document.getElementById('calificacion').value,
+    mensaje: document.getElementById('mensaje').value
+  };
+  await fetch(urlResenna, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nueva)
+  });
+  cargarResennas();
+  e.target.reset();
+});
+
+document.getElementById('formularioeditarresenna').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideditarresenna').value;
+  const actualizado = {
+    resenna_id: document.getElementById('resenna_ideditar').value,
+    usuario_id: document.getElementById('usuario_ideditar').value,
+    calificacion: document.getElementById('calificacioneditar').value,
+    mensaje: document.getElementById('mensajeeditar').value
+  };
+  await fetch(`${urlResenna}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(actualizado)
+  });
+  cargarResennas();
+  bootstrap.Modal.getInstance(document.getElementById('modalEditarResenna')).hide();
+  e.target.reset();
+});
+
+document.getElementById('formularioeliminarresenna').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideliminarresenna').value;
+  await fetch(`${urlResenna}/${id}`, { method: 'DELETE' });
+  cargarResennas();
+  bootstrap.Modal.getInstance(document.getElementById('modalEliminarResenna')).hide();
+  e.target.reset();
+});
+
+function abrirModalEditarResenna(id, resenna_id, usuario_id, calificacion, mensaje) {
+  document.getElementById('ideditarresenna').value = id;
+  document.getElementById('resenna_ideditar').value = resenna_id;
+  document.getElementById('usuario_ideditar').value = usuario_id;
+  document.getElementById('calificacioneditar').value = calificacion;
+  document.getElementById('mensajeeditar').value = mensaje;
+  new bootstrap.Modal(document.getElementById('modalEditarResenna')).show();
+}
+
+function abrirModalEliminarResenna(id) {
+  document.getElementById('ideliminarresenna').value = id;
+  new bootstrap.Modal(document.getElementById('modalEliminarResenna')).show();
+}
+
+const urlReporte = 'http://localhost:8000/Reporte';
+
+async function cargarReportes() {
+  const respuesta = await fetch(urlReporte);
+  const datos = await respuesta.json();
+  const tabla = document.getElementById('tablareporte');
+  tabla.innerHTML = '';
+  datos.forEach(r => {
+    const fila = `
+      <tr>
+        <td>${r.reporte_id}</td>
+        <td>${r.usuario_id}</td>
+        <td>${r.usuario_reportado_id}</td>
+        <td>${r.motivo}</td>
+        <td>
+          <button class="btn btn-danger" onclick="abrirModalEliminarReporte('${r._id}')">Eliminar</button>
+          <button class="btn btn-primary" onclick="abrirModalEditarReporte('${r._id}', ${r.reporte_id}, '${r.usuario_id}', '${r.usuario_reportado_id}', \`${r.motivo}\`)">Editar</button>
+        </td>
+      </tr>
+    `;
+    tabla.innerHTML += fila;
+  });
+}
+
+cargarReportes();
+
+document.getElementById('formulariocrearreporte').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nuevo = {
+    reporte_id: document.getElementById('reporte_id').value,
+    usuario_id: document.getElementById('usuario_id').value,
+    usuario_reportado_id: document.getElementById('usuario_reportado_id').value,
+    motivo: document.getElementById('motivo').value
+  };
+  await fetch(urlReporte, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nuevo)
+  });
+  cargarReportes();
+  e.target.reset();
+});
+
+document.getElementById('formularioeditarreporte').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideditarreporte').value;
+  const actualizado = {
+    reporte_id: document.getElementById('reporte_ideditar').value,
+    usuario_id: document.getElementById('usuario_ideditar').value,
+    usuario_reportado_id: document.getElementById('usuario_reportado_ideditar').value,
+    motivo: document.getElementById('motivoeditar').value
+  };
+  await fetch(`${urlReporte}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(actualizado)
+  });
+  cargarReportes();
+  bootstrap.Modal.getInstance(document.getElementById('modalEditarReporte')).hide();
+  e.target.reset();
+});
+
+document.getElementById('formularioeliminarreporte').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideliminarreporte').value;
+  await fetch(`${urlReporte}/${id}`, { method: 'DELETE' });
+  cargarReportes();
+  bootstrap.Modal.getInstance(document.getElementById('modalEliminarReporte')).hide();
+  e.target.reset();
+});
+
+function abrirModalEditarReporte(id, reporte_id, usuario_id, usuario_reportado_id, motivo) {
+  document.getElementById('ideditarreporte').value = id;
+  document.getElementById('reporte_ideditar').value = reporte_id;
+  document.getElementById('usuario_ideditar').value = usuario_id;
+  document.getElementById('usuario_reportado_ideditar').value = usuario_reportado_id;
+  document.getElementById('motivoeditar').value = motivo;
+  new bootstrap.Modal(document.getElementById('modalEditarReporte')).show();
+}
+
+function abrirModalEliminarReporte(id) {
+  document.getElementById('ideliminarreporte').value = id;
+  new bootstrap.Modal(document.getElementById('modalEliminarReporte')).show();
+}
+
+const urlPago = 'http://localhost:8000/Pago';
+
+async function cargarPagos() {
+  const respuesta = await fetch(urlPago);
+  const datos = await respuesta.json();
+  const tabla = document.getElementById('tablapago');
+  tabla.innerHTML = '';
+  datos.forEach(p => {
+    const fila = `
+      <tr>
+        <td>${p.reserva_id}</td>
+        <td>${p.monto}</td>
+        <td>${p.estado}</td>
+        <td>
+          <button class="btn btn-danger" onclick="abrirModalEliminarPago('${p._id}')">Eliminar</button>
+          <button class="btn btn-primary" onclick="abrirModalEditarPago('${p._id}', '${p.reserva_id}', ${p.monto}, '${p.estado}')">Editar</button>
+        </td>
+      </tr>
+    `;
+    tabla.innerHTML += fila;
+  });
+}
+
+cargarPagos();
+
+document.getElementById('formulariocrearpago').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nuevo = {
+    reserva_id: document.getElementById('reserva_id').value,
+    monto: document.getElementById('monto').value,
+    estado: document.getElementById('estado').value
+  };
+  await fetch(urlPago, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nuevo)
+  });
+  cargarPagos();
+  e.target.reset();
+});
+
+document.getElementById('formularioeditarpago').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideditarpago').value;
+  const actualizado = {
+    reserva_id: document.getElementById('reserva_ideditar').value,
+    monto: document.getElementById('montoeditar').value,
+    estado: document.getElementById('estadoeditar').value
+  };
+  await fetch(`${urlPago}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(actualizado)
+  });
+  cargarPagos();
+  bootstrap.Modal.getInstance(document.getElementById('modalEditarPago')).hide();
+  e.target.reset();
+});
+
+document.getElementById('formularioeliminarpago').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideliminarpago').value;
+  await fetch(`${urlPago}/${id}`, { method: 'DELETE' });
+  cargarPagos();
+  bootstrap.Modal.getInstance(document.getElementById('modalEliminarPago')).hide();
+  e.target.reset();
+});
+
+function abrirModalEditarPago(id, reserva_id, monto, estado) {
+  document.getElementById('ideditarpago').value = id;
+  document.getElementById('reserva_ideditar').value = reserva_id;
+  document.getElementById('montoeditar').value = monto;
+  document.getElementById('estadoeditar').value = estado;
+  new bootstrap.Modal(document.getElementById('modalEditarPago')).show();
+}
+
+function abrirModalEliminarPago(id) {
+  document.getElementById('ideliminarpago').value = id;
+  new bootstrap.Modal(document.getElementById('modalEliminarPago')).show();
+}
+
+const urlObjeto = 'http://localhost:8000/Objeto';
+
+async function cargarObjetos() {
+  const respuesta = await fetch(urlObjeto);
+  const datos = await respuesta.json();
+  const tabla = document.getElementById('tablaobjeto');
+  tabla.innerHTML = '';
+  datos.forEach(o => {
+    const fila = `
+      <tr>
+        <td>${o.nombre}</td>
+        <td>${o.categoria}</td>
+        <td>${o.dueño_id}</td>
+        <td>${o.precio_por_dia}</td>
+        <td>${o.estado}</td>
+        <td>
+          <button class="btn btn-danger" onclick="abrirModalEliminarObjeto('${o._id}')">Eliminar</button>
+          <button class="btn btn-primary" onclick="abrirModalEditarObjeto('${o._id}', '${o.nombre}', '${o.categoria}', '${o.dueño_id}', ${o.precio_por_dia}, '${o.estado}')">Editar</button>
+        </td>
+      </tr>
+    `;
+    tabla.innerHTML += fila;
+  });
+}
+
+cargarObjetos();
+
+document.getElementById('formulariocrearobjeto').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nuevo = {
+    nombre: document.getElementById('nombre').value,
+    categoria: document.getElementById('categoria').value,
+    dueño_id: document.getElementById('dueño_id').value,
+    precio_por_dia: document.getElementById('precio_por_dia').value,
+    estado: document.getElementById('estado').value
+  };
+  await fetch(urlObjeto, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nuevo)
+  });
+  cargarObjetos();
+  e.target.reset();
+});
+
+document.getElementById('formularioeditarobjeto').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideditarobjeto').value;
+  const actualizado = {
+    nombre: document.getElementById('nombreeditar').value,
+    categoria: document.getElementById('categoriaeditar').value,
+    dueño_id: document.getElementById('dueño_ideditar').value,
+    precio_por_dia: document.getElementById('precio_por_diaeditar').value,
+    estado: document.getElementById('estadoeditar').value
+  };
+  await fetch(`${urlObjeto}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(actualizado)
+  });
+  cargarObjetos();
+  bootstrap.Modal.getInstance(document.getElementById('modalEditarObjeto')).hide();
+  e.target.reset();
+});
+
+document.getElementById('formularioeliminarobjeto').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideliminarobjeto').value;
+  await fetch(`${urlObjeto}/${id}`, { method: 'DELETE' });
+  cargarObjetos();
+  bootstrap.Modal.getInstance(document.getElementById('modalEliminarObjeto')).hide();
+  e.target.reset();
+});
+
+function abrirModalEditarObjeto(id, nombre, categoria, dueño_id, precio_por_dia, estado) {
+  document.getElementById('ideditarobjeto').value = id;
+  document.getElementById('nombreeditar').value = nombre;
+  document.getElementById('categoriaeditar').value = categoria;
+  document.getElementById('dueño_ideditar').value = dueño_id;
+  document.getElementById('precio_por_diaeditar').value = precio_por_dia;
+  document.getElementById('estadoeditar').value = estado;
+  new bootstrap.Modal(document.getElementById('modalEditarObjeto')).show();
+}
+
+function abrirModalEliminarObjeto(id) {
+  document.getElementById('ideliminarobjeto').value = id;
+  new bootstrap.Modal(document.getElementById('modalEliminarObjeto')).show();
+}
+
+const urlNotificacion = 'http://localhost:8000/Notificacion';
+
+async function cargarNotificaciones() {
+  const respuesta = await fetch(urlNotificacion);
+  const datos = await respuesta.json();
+  const tabla = document.getElementById('tablanotificacion');
+  tabla.innerHTML = '';
+  datos.forEach(n => {
+    const fila = `
+      <tr>
+        <td>${n.usuario_id}</td>
+        <td>${n.mensaje}</td>
+        <td>
+          <button class="btn btn-danger" onclick="abrirModalEliminarNotificacion('${n._id}')">Eliminar</button>
+          <button class="btn btn-primary" onclick="abrirModalEditarNotificacion('${n._id}', '${n.usuario_id}', '${n.mensaje}')">Editar</button>
+        </td>
+      </tr>
+    `;
+    tabla.innerHTML += fila;
+  });
+}
+
+cargarNotificaciones();
+
+document.getElementById('formulariocrearnotificacion').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nueva = {
+    usuario_id: document.getElementById('usuario_id').value,
+    mensaje: document.getElementById('mensaje').value
+  };
+  await fetch(urlNotificacion, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nueva)
+  });
+  cargarNotificaciones();
+  e.target.reset();
+});
+
+document.getElementById('formularioeditarnotificacion').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideditarnotificacion').value;
+  const actualizado = {
+    usuario_id: document.getElementById('usuario_ideditar').value,
+    mensaje: document.getElementById('mensajeeditar').value
+  };
+  await fetch(`${urlNotificacion}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(actualizado)
+  });
+  cargarNotificaciones();
+  bootstrap.Modal.getInstance(document.getElementById('modalEditarNotificacion')).hide();
+  e.target.reset();
+});
+
+document.getElementById('formularioeliminarnotificacion').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('ideliminarnotificacion').value;
+  await fetch(`${urlNotificacion}/${id}`, { method: 'DELETE' });
+  cargarNotificaciones();
+  bootstrap.Modal.getInstance(document.getElementById('modalEliminarNotificacion')).hide();
+  e.target.reset();
+});
+
+function abrirModalEditarNotificacion(id, usuario_id, mensaje) {
+  document.getElementById('ideditarnotificacion').value = id;
+  document.getElementById('usuario_ideditar').value = usuario_id;
+  document.getElementById('mensajeeditar').value = mensaje;
+  new bootstrap.Modal(document.getElementById('modalEditarNotificacion')).show();
+}
+
+function abrirModalEliminarNotificacion(id) {
+  document.getElementById('ideliminarnotificacion').value = id;
+  new bootstrap.Modal(document.getElementById('modalEliminarNotificacion')).show();
+}
+
+
+</script>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
